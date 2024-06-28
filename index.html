@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Magazine</title>
+    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
+	<link href="https://fonts.cdnfonts.com/css/magazine-2" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: "Playfair Display", serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 20px 5px 20px;
+            background-color: white;
+            border: 50px ;
+            position: relative;
+        }
+        .navbar .social-icons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .navbar .login {
+                display: flex;
+                align-items: center;
+                padding-right: 20px;
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-family: 'Brush Script MT', cursive;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+			padding-top: 13px;
+        }
+        .navbar .language {
+            margin-left: auto;
+			padding-right: 30px;
+        }
+        .navbar .menu-icon {
+            display: none;
+        }
+        .menu-bar {
+    background-color: black;
+    display: flex;
+	border-radius: 16px;
+    justify-content: center;
+    position: relative;
+	margin: 20px;
+	height: 50px;
+	padding-bottom: 5px;
+        }
+        .menu-bar .menu {
+            display: flex;
+            align-items: center;
+        }
+
+            .menu-bar .menu ::after {
+                content: '';
+                width: 0;
+                height: 2px;
+                background: #f67852;
+                display: block;
+                transition: 0.2s linear;
+            }
+
+            .menu-bar .menu :hover::after {
+                width: 100%;
+            }
+
+            .menu-bar .menu :hover{
+                color:  #f67852;
+            }
+
+            .menu-bar .menu a {
+                margin: 0 10px;
+                text-decoration: none;
+                color: white;
+            }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 0 20px; /* Added spacing on both sides */
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+		
+		
+	
+
+        .credit {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: inherit;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            overflow: hidden;
+            min-width: 600px;
+            max-width: 900px;
+            width: calc(100% - 100px);
+            height: 300px;
+        }
+
+        .option {
+            position: relative;
+            overflow: hidden;
+            min-width: 60px;
+            margin: 10px;
+            background: var(--optionBackground, #E6E9ED);
+            background-size: auto 120%;
+            background-position: center;
+            cursor: pointer;
+            transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+        .option.active {
+            flex-grow: 10000;
+            transform: scale(1);
+            max-width: 600px;
+            margin: 0px;
+            border-radius: 40px;
+            background-size: auto 100%;
+        }
+
+        .option:not(.active) {
+            flex-grow: 1;
+            border-radius: 30px;
+        }
+
+        .shadow {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 120px;
+            transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+        .label {
+            display: flex;
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            align-items: center;
+            height: 60px; /* Ensure consistent height for alignment */
+            transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            background-color: white;
+            color: inherit;
+            flex-shrink: 0;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 10px;
+            color: white;
+        }
+
+        .main {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .sub {
+            font-size: 14px;
+        }
+
+        .late {
+            margin-bottom: 75px;
+            display: block;
+            position: absolute;
+            top: 220px;
+            font-size: 1.6rem;
+        }
+
+        .sticky {
+            position: sticky;
+            top: 5px;
+            z-index: 10;
+        }
+
+        .section1{
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="navbar">
+        <div class="social-icons">
+            <a href="#"><img src="https://www.svgrepo.com/show/521826/search.svg" alt="Search" width="20"></a>
+            <a href="https://www.youtube.com/user/SharjahMediaCentre"><img src="https://www.svgrepo.com/show/513089/youtube-168.svg" alt="YouTube" width="20"></a>
+            <a href="https://www.instagram.com/shj.media/"><img src="https://www.svgrepo.com/show/512399/instagram-167.svg" alt="Instagram" width="20"></a>
+            <a href="https://x.com/ShjMedia"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-black-icon.png" alt="Twitter" width="20"></a>
+        </div>
+        <div class="logo"><img src="C:\Users\maria\OneDrive\Desktop\Magazine\logo no bg.png" width="120" ></div>
+
+        <div class="language">عربي</div>
+        <div class="login"><a href="file:///C:/Users/maria/OneDrive/Desktop/Magazine/signin.html"><img src="https://www.svgrepo.com/show/483912/person.svg" alt="log in" width="25"></a></div>
+        <a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT350bxpNqEmC4YgstwOC9rSdKl_7Vm8_L72Q&s" alt="Search" width="20"></a>
+
+    </div>
+    
+    <div class="menu-bar"   id="navbar-sticky">
+        <div class="menu">
+            <a href="#section1">HOME</a>
+            <a href="#section2">IT/CS</a>
+            <a href="#section3">ACCOUNTING</a>
+            <a href="#section4">MEDIA</a>
+            <a href="#section5">IR</a>
+            <a href="#section6">MARKETING</a>
+            <a href="#section7">MANAGEMENT</a>
+            <a href="#section8">TRANSLATION</a>
+               
+        </div>
+    </div>
+	
+	<main>
+
+        
+        <section id="section1">
+            <!--<div id="container1" style="width: 100%;">-->
+            <div class="late"> <h3> LATEST NEWS! </h3></div>
+            <div class="options">
+                <div class="option active" style="--optionBackground:url('https://66.media.tumblr.com/6fb397d822f4f9f4596dff2085b18f2e/tumblr_nzsvb4p6xS1qho82wo1_1280.jpg');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="fas fa-walking"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">Blonkisoaz</div>
+                            <div class="sub">Omuke trughte a otufta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" style="--optionBackground:url('https://66.media.tumblr.com/8b69cdde47aa952e4176b4200052abf4/tumblr_o51p7mFFF21qho82wo1_1280.jpg');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">Oretemauw</div>
+                            <div class="sub">Omuke trughte a otufta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" style="--optionBackground:url('https://66.media.tumblr.com/5af3f8303456e376ceda1517553ba786/tumblr_o4986gakjh1qho82wo1_1280.jpg');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">Iteresuselle</div>
+                            <div class="sub">Omuke trughte a otufta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" style="--optionBackground:url('https://66.media.tumblr.com/5516a22e0cdacaa85311ec3f8fd1e9ef/tumblr_o45jwvdsL11qho82wo1_1280.jpg');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">Idiefe</div>
+                            <div class="sub">Omuke trughte a otufta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" style="--optionBackground:url('https://66.media.tumblr.com/f19901f50b79604839ca761cd6d74748/tumblr_o65rohhkQL1qho82wo1_1280.jpg');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">Inatethi</div>
+                            <div class="sub">Omuke trughte a otufta</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New option -->
+                <div class="option" style="--optionBackground:url('https://66.media.tumblr.com/anotherimageurl.jpg');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">New Option</div>
+                            <div class="sub">Omuke trughte a otufta</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" style="--optionBackground:url('https://66.media.tumblr.com/anotherimageurl.jpg');">
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">New Option</div>
+                            <div class="sub">Omuke trughte a otufta</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const options = document.querySelectorAll('.option');
+
+                    options.forEach(option => {
+                        option.addEventListener('click', function () {
+                            options.forEach(opt => opt.classList.remove('active'));
+                            this.classList.add('active');
+                        });
+                    });
+                });
+            </script>
+        </section>
+        
+        <section id="section2" style="width: 100%;">
+            
+            <h1>IT department</h1>
+
+                <div id="slider2">
+
+                    <div class="sliderSection">
+                        <div class="slider" id="slider-it">
+
+
+                            <!--------------------------------------------------- Article card 1 ------------------------------------------------------------------------------------------------------------------------>
+                            <a href="">
+                                <div class="item">
+                                    <div class="article-img">
+                                        <img src="https://images.unsplash.com/photo-1535957998253-26ae1ef29506?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                                    </div>
+
+                                    
+                                    <div class="article-content">
+                                        
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                                            possimus rem vel quia fugit molestiae officiis!</p>   
+                                    </div>
+                                    <h2>Article Title</h2>
+                                </div>
+                            </a>
+
+                            <!--------------------------------------------------- Article card 2 ------------------------------------------------------------------------------------------------------------------------>
+                            <a href="">
+                                <div class="item">
+                                    <div class="article-img">
+                                        <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                                    </div>
+
+                                    
+                                    <div class="article-content">
+                                        
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                                            possimus rem vel quia fugit molestiae officiis!</p>   
+                                    </div>
+                                    <h2>Article Title</h2>
+                                </div>
+                            </a>
+                            
+                            <!--------------------------------------------------- Article card 3 ------------------------------------------------------------------------------------------------------------------------>
+                            <a href="">
+                                <div class="item">
+                                    <div class="article-img">
+                                        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                                    </div>
+
+                                    
+                                    <div class="article-content">
+                                        
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                                            possimus rem vel quia fugit molestiae officiis!</p>   
+                                    </div>
+                                    <h2>Article Title</h2>
+                                </div>
+                            </a>
+
+                            <!--------------------------------------------------- Article card 4 ------------------------------------------------------------------------------------------------------------------------>
+                            <a href="">
+                                <div class="item">
+                                    <div class="article-img">
+                                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                                    </div>
+
+                                    
+                                    <div class="article-content">
+                                        
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                                            possimus rem vel quia fugit molestiae officiis!</p>   
+                                    </div>
+                                    <h2>Article Title</h2>
+                                </div>
+                            </a>
+
+                            <!--------------------------------------------------- Article card 5 ------------------------------------------------------------------------------------------------------------------------>
+                            <a href="">
+                                <div class="item">
+                                    <div class="article-img">
+                                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                                    </div>
+
+                                    
+                                    <div class="article-content">
+                                        
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                                            possimus rem vel quia fugit molestiae officiis!</p>   
+                                    </div>
+                                    <h2>Article Title</h2>
+                                </div>
+                            </a>
+
+                            <!--------------------------------------------------- Article card 6 ------------------------------------------------------------------------------------------------------------------------>
+                            <a href="">
+                                <div class="item">
+                                    <div class="article-img">
+                                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                                    </div>
+
+                                    
+                                    <div class="article-content">
+                                        
+                                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                                            possimus rem vel quia fugit molestiae officiis!</p>   
+                                    </div>
+                                    <h2>Article Title</h2>
+                                </div>
+                            </a>
+
+                            <button id="next">></button>
+                            <button id="prev"><</button>
+                        </div>
+                    </div>
+                </div>   
+
+                <div id="it-container">
+                    <p id="it-title">About Us</p>
+                    <p id="it-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis provident porro ratione nisi. Provident temporibus quibusdam minus, obcaecati repudiandae laudantium animi, nemo optio hic, vitae atque. Dignissimos architecto atque sit?</p>
+                    <div id="it-img"><img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""></div>
+                </div> 
+            
+
+        </section>
+
+        <section id="section3">
+            <div class="header">
+              <h1 class="title">ACCOUNTING</h1>
+              <div class="subtitle">ARTICLES</div>
+          </div>
+    <div id="container-3">
+
+        <div class="sliderSection" id="slider3">
+            <div class="slider">
+    
+                <!--------------------------------------------------- Article card 1 ------------------------------------------------------------------------------------------------------------------------>
+                <a href="article.html" target="_blank">
+                    <div class="item">
+                        <div class="article-img">
+                            <img src="https://images.unsplash.com/photo-1535957998253-26ae1ef29506?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </div>
+    
+                        <div class="article-content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore, sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi possimus rem vel quia fugit molestiae officiis!</p>   
+                        </div>
+                        <h2>Article NUMBER ONE</h2>
+                    </div>
+                </a>
+    
+                <!--------------------------------------------------- Article card 2 ------------------------------------------------------------------------------------------------------------------------>
+                <a href="article.html" target="_blank">
+                    <div class="item">
+                        <div class="article-img">
+                            <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </div>
+    
+                        <div class="article-content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore, sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi possimus rem vel quia fugit molestiae officiis!</p>   
+                        </div>
+                        <h2>Article Title</h2>
+                    </div>
+                </a>
+                
+                <!--------------------------------------------------- Article card 3 ------------------------------------------------------------------------------------------------------------------------>
+                <a href="article.html" target="_blank">
+                    <div class="item">
+                        <div class="article-img">
+                            <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </div>
+    
+                        <div class="article-content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore, sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi possimus rem vel quia fugit molestiae officiis!</p>   
+                        </div>
+                        <h2>Article Title</h2>
+                    </div>
+                </a>
+    
+                <!--------------------------------------------------- Article card 4 ------------------------------------------------------------------------------------------------------------------------>
+                <a href="article.html" target="_blank">
+                    <div class="item">
+                        <div class="article-img">
+                            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </div>
+    
+                        <div class="article-content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore, sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi possimus rem vel quia fugit molestiae officiis!</p>   
+                        </div>
+                        <h2>Article Title</h2>
+                    </div>
+                </a>
+    
+                <!--------------------------------------------------- Article card 5 ------------------------------------------------------------------------------------------------------------------------>
+                <a href="article.html" target="_blank">
+                    <div class="item">
+                        <div class="article-img">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </div>
+    
+                        <div class="article-content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore, sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi possimus rem vel quia fugit molestiae officiis!</p>   
+                        </div>
+                        <h2>Article Title</h2>
+                    </div>
+                </a>
+    
+                <!--------------------------------------------------- Article card 6 ------------------------------------------------------------------------------------------------------------------------>
+                <a href="article.html" target="_blank">
+                    <div class="item">
+                        <div class="article-img">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </div>
+    
+                        <div class="article-content">
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore, sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi possimus rem vel quia fugit molestiae officiis!</p>   
+                        </div>
+                        <h2>Article Title</h2>
+                    </div>
+                </a>
+    
+                <button id="next">></button>
+                <button id="prev"><</button>
+            </div>
+        </div>
+    </div>
+        
+  </section>
+  
+        <section id="section4"style="width: 100%;">
+            <h1>Contact</h1>
+            <p>Contact us.</p>
+        </section>
+        
+ <!--------------------------------------------------------------------------- IR section -------------------------------------------------------------------------------------------->
+ <section id="section5" class="dept-sec">
+    <!------------------------------------------------------------------------------ IT section ---------------------------------------------------------------------------------------------------------->
+    <h1 class="mainHeader"> International Relations </h1>
+
+    <div class="sliderSection" id="slider5"><!--Testing horizontal cards-->
+        <div class="slider">
+
+
+            <!--------------------------------------------------- Article card 1 ------------------------------------------------------------------------------------------------------------------------>
+            <a href="article1.html">
+                <div class="item">
+                    <div class="article-img">
+                    <img src="https://images.unsplash.com/photo-1535957998253-26ae1ef29506?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </div>
+
+                    
+                    <div class="article-content">
+                        
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                            possimus rem vel quia fugit molestiae officiis!</p>   
+                    </div>
+                    <h2>WORKSHOPS</h2>
+                </div>
+            </a>
+
+            <!--------------------------------------------------- Article card 2 ------------------------------------------------------------------------------------------------------------------------>
+            <a href="article2.html">
+                <div class="item">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                    </div>
+
+                    
+                    <div class="article-content">
+                        
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                            possimus rem vel quia fugit molestiae officiis!</p>   
+                    </div>
+                    <h2>POLITICS</h2>
+                </div>
+            </a>
+            
+            <!--------------------------------------------------- Article card 3 ------------------------------------------------------------------------------------------------------------------------>
+            <a href="article3.html">
+                <div class="item">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                    </div>
+
+                    
+                    <div class="article-content">
+                        
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                            possimus rem vel quia fugit molestiae officiis!</p>   
+                    </div>
+                    <h2>UNITED NATIONS</h2>
+                </div>
+            </a>
+
+            <!--------------------------------------------------- Article card 4 ------------------------------------------------------------------------------------------------------------------------>
+            <a href="article4.html">
+                <div class="item">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                    </div>
+
+                    
+                    <div class="article-content">
+                        
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                            possimus rem vel quia fugit molestiae officiis!</p>   
+                    </div>
+                    <h2>DEBATES</h2>
+                </div>
+            </a>
+
+            <!--------------------------------------------------- Article card 5 ------------------------------------------------------------------------------------------------------------------------>
+            <a href="article5.html">
+                <div class="item">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                    </div>
+
+                    
+                    <div class="article-content">
+                        
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                            possimus rem vel quia fugit molestiae officiis!</p>   
+                    </div>
+                    <h2>DISCUSSIONS</h2>
+                </div>
+            </a>
+
+            <!--------------------------------------------------- Article card 6 ------------------------------------------------------------------------------------------------------------------------>
+            <a href="article6.html">
+                <div class="item">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                    </div>
+
+                    
+                    <div class="article-content">
+                        
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere magni magnam unde ipsam repudiandae explicabo expedita labore,
+                            sequi minus neque beatae voluptatum, quasi accusamus quia quis voluptas laborum ad! Ab totam doloribus, excepturi
+                            possimus rem vel quia fugit molestiae officiis!</p>   
+                    </div>
+                    <h2>DIPLOMACY</h2>
+                </div>
+            </a>
+
+            <button id="next">></button>
+            <button id="prev"><</button>
+        </div>
+    </div>
+
+
+    <div id="media-content">
+        <video class="videoo" src="IR.mp4"
+        height="300px" autoplay muted loop>  </video>
+        <p>International relations is widely classified as a major subdiscipline of political science, along with comparative politics, political theory, political methodology, and public administration.
+         It also often draws heavily from other fields, including anthropology, economics, geography, law, philosophy, sociology, and history.</p>
+    </div>
+</section>
+
+    </main>
+	
+	<footer>
+        <p>&copy; 2024 Your Company</p>
+    </footer>
+    <script src="script.js"></script>
+
+</body>
+</html>
+

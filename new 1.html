@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <style>
+        body {
+            href="https://fonts.googleapis.com/css?family=Alkatra";
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 20px 5px 20px;
+            background-color: white;
+            border: 50px ;
+            position: relative;
+        }
+        .navbar .social-icons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .social-icons a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-family: 'Brush Script MT', cursive;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+			padding-top: 13px;
+        }
+        .navbar .language {
+            margin-left: auto;
+			padding-right: 30px;
+        }
+        .navbar .menu-icon {
+            display: none;
+        }
+        .menu-bar {
+    background-color: black;
+    display: flex;
+	border-radius: 16px;
+    justify-content: center;
+    position: relative;
+	margin: 20px;
+	height: 50px;
+        }
+        .menu-bar .menu {
+            display: flex;
+            align-items: center;
+        }
+        .menu-bar .menu a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: white;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 0 20px; /* Added spacing on both sides */
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="social-icons">
+            <a href="#"><img src="https://www.svgrepo.com/show/521826/search.svg" alt="Search" width="20"></a>
+            <a href="#"><img src="https://www.svgrepo.com/show/513089/youtube-168.svg" alt="YouTube" width="20"></a>
+            <a href="#"><img src="https://www.svgrepo.com/show/512399/instagram-167.svg" alt="Instagram" width="20"></a>
+            <a href="#"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-black-icon.png" alt="Twitter" width="20"></a>
+        </div>
+        <div class="logo"><img src="C:\Users\maria\OneDrive\Desktop\WhatsApp Image 2024-06-12 at 11.45.14 AM.jpeg" alt="logo" width="80"></div>
+        <div class="language">عربي</div>
+		<a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT350bxpNqEmC4YgstwOC9rSdKl_7Vm8_L72Q&s" alt="Search" width="20"></a>
+		
+    </div>
+    
+    <div class="menu-bar">
+        <div class="menu">
+            <a href="#">HOME</a>
+            <a href="#">IT/CS</a>
+            <a href="#">ACCOUNTING</a>
+            <a href="#">MEDIA</a>
+            <a href="#">TRANSLATION</a>
+            <a href="#">MARKETING</a>
+                    <a href="#">MANAGEMENT</a>
+                    <a href="#">IR</a>
+               
+        </div>
+    </div>
+
+</body>
+</html>
+

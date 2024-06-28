@@ -1,0 +1,584 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Magazine</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
+    <style>
+        body {
+            font-family: "Playfair Display", serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 25px 20px 5px 20px;
+            background-color: white;
+            border: 50px;
+            position: relative;
+        }
+
+            .navbar .social-icons {
+                display: flex;
+                align-items: center;
+            }
+
+                .navbar .social-icons a {
+                    margin: 0 10px;
+                    text-decoration: none;
+                    color: black;
+                }
+
+            .navbar .login {
+                display: flex;
+                align-items: center;
+                padding-right: 20px;
+            }
+
+            .navbar .logo {
+                font-size: 24px;
+                font-family: 'Brush Script MT', cursive;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                padding-top: 13px;
+            }
+
+            .navbar .language {
+                margin-left: auto;
+                padding-right: 30px;
+            }
+
+            .navbar .menu-icon {
+                display: none;
+            }
+
+        .menu-bar {
+            background-color: black;
+            display: flex;
+            border-radius: 16px;
+            justify-content: center;
+            position: relative;
+            margin: 20px;
+            height: 50px;
+            padding-bottom: 5px;
+        }
+
+            .menu-bar .menu {
+                display: flex;
+                align-items: center;
+            }
+
+                .menu-bar .menu ::after {
+                    content: '';
+                    width: 0;
+                    height: 2px;
+                    background: #f67852;
+                    display: block;
+                    transition: 0.2s linear;
+                }
+
+                .menu-bar .menu :hover::after {
+                    width: 100%;
+                }
+
+                .menu-bar .menu :hover {
+                    color: #f67852;
+                }
+
+                .menu-bar .menu a {
+                    margin: 0 10px;
+                    text-decoration: none;
+                    color: white;
+                }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 0 20px; /* Added spacing on both sides */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+
+
+        .credit {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: inherit;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            overflow: hidden;
+            min-width: 600px;
+            max-width: 900px;
+            width: calc(100% - 100px);
+            height: 300px;
+        }
+
+        .option {
+            position: relative;
+            overflow: hidden;
+            min-width: 60px;
+            margin: 10px;
+            background: var(--optionBackground, #E6E9ED);
+            background-size: auto 120%;
+            background-position: center;
+            cursor: pointer;
+            transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+            .option.active {
+                flex-grow: 10000;
+                transform: scale(1);
+                max-width: 600px;
+                margin: 0px;
+                border-radius: 40px;
+                background-size: auto 100%;
+            }
+
+            .option:not(.active) {
+                flex-grow: 1;
+                border-radius: 30px;
+            }
+
+        .shadow {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 120px;
+            transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+        .label {
+            display: flex;
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            align-items: center;
+            height: 60px; /* Ensure consistent height for alignment */
+            transition: .5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            background-color: white;
+            color: inherit;
+            flex-shrink: 0;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 10px;
+            color: white;
+        }
+
+        .main {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .sub {
+            font-size: 14px;
+        }
+
+
+
+        .container {
+            margin-bottom: 180px;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin: 0;
+        }
+
+
+        p {
+            font-size: 14px;
+            font-weight: 100;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+            margin: 20px 0 30px;
+        }
+
+
+        button {
+            border-radius: 25px;
+            border: 1px solid #f67852;
+            background-color: #f67852;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: transform 80ms ease-in;
+            
+        }
+
+            button:active {
+                transform: scale(0.95);
+            }
+
+            button:focus {
+                outline: none;
+            }
+
+            button.ghost {
+                background-color: transparent;
+                border-color: white;
+            }
+
+        form {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 50px;
+            height: 100%;
+            text-align: center;
+        }
+
+        input {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 2px 0;
+            width: 100%;
+        }
+
+
+
+        main {
+         //margin-top: 60px; /* Adjust based on header height */
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #section1 {
+            height: 80vh;
+            background: #f4f4f4;
+            justify-content:center;
+        }
+
+        #section2 {
+            background: #e2e2e2;
+        }
+
+        #section3 {
+            background: #ccc;
+        }
+
+        #section4 {
+            background: #999;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+
+       .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            position: relative;
+            overflow: hidden;
+            width: 768px;
+            max-width: 100%;
+            min-height: 360px;
+            margin-top:130px;
+            
+        }
+
+        .form-container {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .sign-in-container {
+            left: 0;
+            width: 50%;
+            //height: 100px;
+            z-index: 2;
+        }
+
+        .container.right-panel-active .sign-in-container {
+            transform: translateX(100%);
+        }
+
+        .sign-up-container {
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.right-panel-active .sign-up-container {
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: show 0.4s;
+        }
+
+        @keyframes show {
+            0%, 49.99% {
+                opacity: 0;
+                z-index: 1;
+            }
+
+            50%, 100% {
+                opacity: 1;
+                z-index: 5;
+            }
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.4s ease-in-out;
+            z-index: 100;
+        }
+
+        .container.right-panel-active .overlay-container {
+            transform: translateX(-100%);
+        }
+
+        .overlay {
+            background: #f67852;
+            background: -webkit-linear-gradient(#f67852);
+            background: linear-gradient(#f67852);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 0 0;
+            color: white;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .container.right-panel-active .overlay {
+            transform: translateX(50%);
+        }
+
+        .overlay-panel {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+         // padding: 0 40px;
+            text-align: center;
+            top: 0;
+            height: 100%;
+            width: 50%;
+            transform: translateX(0);
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .overlay-left {
+            transform: translateX(-20%);
+        }
+
+        .container.right-panel-active .overlay-left {
+            transform: translateX(0);
+        }
+
+        .overlay-right {
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.right-panel-active .overlay-right {
+            transform: translateX(20%);
+        }
+
+        .social-container {
+            margin: 20px 0;
+        }
+
+        #sign-in-btn {
+            position: absolute;
+            left: 33%;
+            top: 85%;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+    <div class="navbar">
+        <div class="social-icons">
+            <a href="#"><img src="https://www.svgrepo.com/show/521826/search.svg" alt="Search" width="20"></a>
+            <a href="https://www.youtube.com/user/SharjahMediaCentre"><img src="https://www.svgrepo.com/show/513089/youtube-168.svg" alt="YouTube" width="20"></a>
+            <a href="https://www.instagram.com/shj.media/"><img src="https://www.svgrepo.com/show/512399/instagram-167.svg" alt="Instagram" width="20"></a>
+            <a href="https://x.com/ShjMedia"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-black-icon.png" alt="Twitter" width="20"></a>
+        </div>
+        <div class="logo"><img src="C:\Users\maria\OneDrive\Desktop\Magazine\logo no bg.png" alt="logo" width="120"></div>
+
+        <div class="language">عربي</div>
+        <div class="login"><a href="#"><img src="https://www.svgrepo.com/show/483912/person.svg" alt="log in" width="25"></a></div>
+        <a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT350bxpNqEmC4YgstwOC9rSdKl_7Vm8_L72Q&s" alt="Search" width="20"></a>
+
+    </div>
+
+    <div class="menu-bar">
+        <div class="menu">
+            <a href="file:///C:/Users/maria/OneDrive/Desktop/Magazine/index.html">HOME</a>
+            <a href="#section2">IT/CS</a>
+            <a href="#section3">ACCOUNTING</a>
+            <a href="#section4">MEDIA</a>
+            <a href="#section5">TRANSLATION</a>
+            <a href="#section6">MARKETING</a>
+            <a href="#section7">MANAGEMENT</a>
+            <a href="#section8">IR</a>
+
+        </div>
+    </div>
+
+    <section id="section1">
+
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <form action="index1.html">
+
+                    <h1 id="demo"></h1>
+
+                    <script>
+                        function myFunction() {
+                            name = prompt("Please enter your name", "Name");
+                            if (name != null) {
+                                document.getElementById("demo").innerHTML = "Welcome Back " + name + "!";
+                            }
+                        }
+                    </script>
+
+                    <p>use your account </p>
+                    <input id="email" type="email" placeholder="Email" required />
+                    <input id="password" type="password" placeholder="Password" minlength="6" maxlength="8" required />
+                    <p id="comment"></p>
+                    <br />
+                    <a href="index1.html"><button>Log in</button></a>
+
+                </form>
+            </div>
+
+
+            <div class="form-container sign-in-container">
+                <form action="index1.html">
+                    <h1>Create account</h1>
+
+                    <p>Enter your data please</p>
+                    <input id="name" type="text" placeholder="Name" required />
+                    <input id="emailNew" type="email" placeholder="Email" required />
+                    <input id="passwordNew" type="password" placeholder="Password" minlength="6" maxlength="8" required />
+                    <p id="commentNew"></p>
+                    <br />
+                    <a href=""><button id="sign-in-btn">Sign In</button></a>
+                </form>
+            </div>
+
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Nice to see you for the fist time!</h1>
+                        <p>Enter your personal details and start the journey </p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Already have an account? </h1>
+                        <p>just login with<br /> your account</p>
+                        <button class="ghost" id="signUp" onclick="myFunction()">Log in</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signUpButton = document.getElementById('signUp');
+            const signInButton = document.getElementById('signIn');
+            const container = document.getElementById('container');
+
+            signUpButton.addEventListener('click', () => {
+                container.classList.add("right-panel-active");
+            });
+
+            signInButton.addEventListener('click', () => {
+                container.classList.remove("right-panel-active");
+            });
+        });
+    </script>
+
+
+    <footer>
+        <p>&copy; 2024 Your Company</p>
+    </footer>
+
+    <script src="extra.js"></script>
+</body>
+</html>
